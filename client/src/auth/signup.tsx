@@ -2,16 +2,11 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
+import { userSignupSchema, type SignUpInputState } from "@/schemas/userSchema";
 import { LockKeyhole, Mail, PhoneOutgoing, User } from "lucide-react";
 import { useState, type ChangeEvent, type FormEvent } from "react";
 import { Link } from "react-router-dom";
 
-type SignUpInputState = {
-  fullname: string;
-  email: string;
-  password: string;
-  contact: string;
-};
 const SignUp = () => {
   const loading = false;
   const [input, setInput] = useState<SignUpInputState>({
@@ -20,6 +15,7 @@ const SignUp = () => {
     password: "",
     contact: "",
   });
+  const [errors, setErrors] = useState<Partial<SignUpInputState>>({});
   const changeEventHandler = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setInput((prev) => ({
@@ -29,8 +25,15 @@ const SignUp = () => {
   };
   const loginSubmitHandler = (e: React.FormEvent) => {
     e.preventDefault();
+    const result = userSignupSchema.safeParse(input);
+    if (!result.success) {
+      const filedErrors = result.error.formErrors.fieldErrors;
+      setErrors(filedErrors as Partial<SignUpInputState>);
+      return;
+    }
     console.log(input);
   };
+
   return (
     <div className="flex justify-center items-center min-h-screen">
       <form
@@ -51,7 +54,9 @@ const SignUp = () => {
               onChange={changeEventHandler}
             />
             <User className="absolute inset-y-2 left-2 text-gray-200 pointer-events-none" />
-            {/* {error && <p className="text-red-500 text-sm mt-1">{error}</p>} */}
+            {errors.fullname && (
+              <p className="text-red-500 text-sm mt-1">{errors.fullname}</p>
+            )}
           </div>
         </div>
         <div className="mb-4">
@@ -65,7 +70,9 @@ const SignUp = () => {
               onChange={changeEventHandler}
             />
             <Mail className="absolute inset-y-2 left-2 text-gray-200 pointer-events-none" />
-            {/* {error && <p className="text-red-500 text-sm mt-1">{error}</p>} */}
+            {errors.email && (
+              <p className="text-red-500 text-sm mt-1">{errors.email}</p>
+            )}
           </div>
         </div>
         <div className="mb-4">
@@ -79,7 +86,9 @@ const SignUp = () => {
               onChange={changeEventHandler}
             />
             <LockKeyhole className="absolute inset-y-2 left-2 text-gray-200 pointer-events-none" />
-            {/* {error && <p className="text-red-500 text-sm mt-1">{error}</p>} */}
+            {errors.password && (
+              <p className="text-red-500 text-sm mt-1">{errors.password}</p>
+            )}
           </div>
         </div>
         <div className="mb-4">
@@ -93,7 +102,9 @@ const SignUp = () => {
               onChange={changeEventHandler}
             />
             <PhoneOutgoing className="absolute inset-y-2 left-2 text-gray-200 pointer-events-none" />
-            {/* {error && <p className="text-red-500 text-sm mt-1">{error}</p>} */}
+            {errors.contact && (
+              <p className="text-red-500 text-sm mt-1">{errors.contact}</p>
+            )}
           </div>
         </div>
 

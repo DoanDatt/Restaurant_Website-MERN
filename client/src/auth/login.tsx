@@ -2,20 +2,18 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
+import { userSignupSchema, type LoginInputState } from "@/schemas/userSchema";
 import { LockKeyhole, Mail } from "lucide-react";
 import { useState, type ChangeEvent, type FormEvent } from "react";
 import { Link } from "react-router-dom";
 
-type LoginInputState = {
-  email: string;
-  password: string;
-};
 const Login = () => {
   const loading = false;
   const [input, setInput] = useState<LoginInputState>({
     email: "",
     password: "",
   });
+  const [errors, setErrors] = useState<Partial<LoginInputState>>({});
   const changeEventHandler = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setInput((prev) => ({
@@ -25,6 +23,12 @@ const Login = () => {
   };
   const loginSubmitHandler = (e: React.FormEvent) => {
     e.preventDefault();
+    const result = userSignupSchema.safeParse(input);
+    if (!result.success) {
+      const filedErrors = result.error.formErrors.fieldErrors;
+      setErrors(filedErrors as Partial<LoginInputState>);
+      return;
+    }
     console.log(input);
   };
   return (
@@ -48,7 +52,9 @@ const Login = () => {
               onChange={changeEventHandler}
             />
             <Mail className="absolute inset-y-2 left-2 text-gray-200 pointer-events-none" />
-            {/* {error && <p className="text-red-500 text-sm mt-1">{error}</p>} */}
+            {errors.email && (
+              <p className="text-red-500 text-sm mt-1">{errors.email}</p>
+            )}
           </div>
         </div>
         {/* Input Password */}
@@ -63,7 +69,9 @@ const Login = () => {
               onChange={changeEventHandler}
             />
             <LockKeyhole className="absolute inset-y-2 left-2 text-gray-200 pointer-events-none" />
-            {/* {error && <p className="text-red-500 text-sm mt-1">{error}</p>} */}
+            {errors.password && (
+              <p className="text-red-500 text-sm mt-1">{errors.password}</p>
+            )}
           </div>
         </div>
 
