@@ -10,7 +10,6 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuSubContent,
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
 import { Button } from "./ui/button";
@@ -76,17 +75,22 @@ const Navbar = () => {
           <div className="flex items-center gap-4">
             <div>
               <DropdownMenu>
-                <DropdownMenuTrigger>
+                {/* <DropdownMenuTrigger asChild>
                   <Button variant="outline" size="icon">
                     <Sun className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
                     <Moon className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
                     <span className="sr-only">Toggle theme</span>
                   </Button>
+                </DropdownMenuTrigger> */}
+                <DropdownMenuTrigger className="inline-flex items-center justify-center rounded-md border border-input bg-background p-2 hover:bg-accent">
+                  <Sun className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
+                  <Moon className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
+                  <span className="sr-only">Toggle theme</span>
                 </DropdownMenuTrigger>
-                <DropdownMenuSubContent align="end">
+                <DropdownMenuContent align="end">
                   <DropdownMenuItem>Light</DropdownMenuItem>
                   <DropdownMenuItem>Dark</DropdownMenuItem>
-                </DropdownMenuSubContent>
+                </DropdownMenuContent>
               </DropdownMenu>
             </div>
 
@@ -133,7 +137,7 @@ const MobileNavbar = () => {
   const loading = true;
   return (
     <Sheet>
-      <SheetTrigger>
+      {/* <SheetTrigger>
         <Button
           size={"icon"}
           className="rounded-full bg-gray-200 text-black hover:bg-gray-200"
@@ -141,17 +145,25 @@ const MobileNavbar = () => {
         >
           <Menu size={"18"} />
         </Button>
+      </SheetTrigger> */}
+      <SheetTrigger className="rounded-full bg-gray-200 text-black hover:bg-gray-200 p-2">
+        <Menu size={18} />
       </SheetTrigger>
       <SheetContent>
         <SheetHeader className="flex flex-row items-center justify-between mt-2">
           <SheetTitle>PatelEats</SheetTitle>
           <DropdownMenu>
-            <DropdownMenuTrigger>
+            {/* <DropdownMenuTrigger asChild>
               <Button variant="outline" size="icon">
                 <Sun className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
                 <Moon className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
                 <span className="sr-only">Toggle theme</span>
               </Button>
+            </DropdownMenuTrigger> */}
+            <DropdownMenuTrigger className="inline-flex items-center justify-center rounded-md border border-input bg-background p-2 hover:bg-accent">
+              <Sun className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
+              <Moon className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
+              <span className="sr-only">Toggle theme</span>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
               <DropdownMenuItem>Light</DropdownMenuItem>
@@ -216,7 +228,7 @@ const MobileNavbar = () => {
             </Avatar>
             <h1 className="font-bold">Patel Mernstack</h1>
           </div>
-          <SheetClose>
+          {/* <SheetClose>
             {loading ? (
               <Button className="bg-orange hover:bg-hoverOrange">
                 <Loader2 className="mr-2 h-4 w-4 animate-spin" />
@@ -229,6 +241,16 @@ const MobileNavbar = () => {
               >
                 Logout
               </Button>
+            )}
+          </SheetClose> */}
+          <SheetClose className="bg-orange hover:bg-hoverOrange w-full rounded-md px-4 py-2 text-white">
+            {loading ? (
+              <>
+                <Loader2 className="mr-2 h-4 w-4 animate-spin inline" />
+                Please wait
+              </>
+            ) : (
+              "Logout"
             )}
           </SheetClose>
         </SheetFooter>
