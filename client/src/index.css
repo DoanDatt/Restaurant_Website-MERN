@@ -1,6 +1,11 @@
 #root {
   width: 100%;
   min-height: 100vh;
+  --button: #d19254;
+  --hoverButtonColor: #d18c47;
+
+  --orange: var(--button);
+  --hoverOrange: var(--hoverButtonColor);
 }
 
 @media (prefers-color-scheme: dark) {
