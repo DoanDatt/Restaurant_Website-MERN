@@ -51,7 +51,7 @@ const Navbar = () => {
           <div className="hidden md:flex items-center gap-6">
             <Link to="/">Home</Link>
             <Link to="/profile">Profile</Link>
-            <Link to="/order">Order</Link>
+            <Link to="/cart">Cart</Link>
             {admin && (
               <Menubar>
                 <MenubarMenu>
@@ -63,8 +63,8 @@ const Navbar = () => {
                     <Link to="/admin/menu">
                       <MenubarItem>Menu</MenubarItem>
                     </Link>
-                    <Link to="/admin/orders">
-                      <MenubarItem>Orders</MenubarItem>
+                    <Link to="/admin/cart">
+                      <MenubarItem>Cart</MenubarItem>
                     </Link>
                   </MenubarContent>
                 </MenubarMenu>
