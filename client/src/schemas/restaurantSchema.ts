@@ -1,0 +1,19 @@
+import { z } from "zod/v4";
+
+export const restaurantSchema = z.object({
+  restaurantName: z
+    .string()
+    .nonempty({ message: "Restaurant name is required" }),
+  city: z.string().nonempty({ message: "City is required" }),
+  country: z.string().nonempty({ message: "Country is required" }),
+  deliveryTime: z
+    .number()
+    .min(1, { message: "Delivery Time can not be negative" }),
+  cuisines: z.array(z.string()),
+  imageFile: z
+    .instanceof(File)
+    .optional()
+    .refine((file) => file?.size !== 0, { message: "Image file is required" }),
+});
+
+export type RestaurantFormSchema = z.infer<typeof restaurantSchema>;
