@@ -1,5 +1,7 @@
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore: CSS imports are handled by the build tool
 import "./App.css";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Login from "./auth/Login";
 import ForgotPassword from "./auth/ForgotPassword";
 import ResetPassword from "./auth/ResetPassword";
@@ -12,6 +14,7 @@ import SearchPage from "./components/SearchPage";
 import RestaurantDetail from "./components/RestaurantDetail";
 import Cart from "./components/Cart";
 import Restaurant from "./admin/Restaurant";
+import AddMenu from "./admin/AddMenu";
 
 const appRouter = createBrowserRouter([
   {
@@ -41,6 +44,10 @@ const appRouter = createBrowserRouter([
       {
         path: "/admin/restaurant",
         element: <Restaurant />,
+      },
+      {
+        path: "/admin/add-menu",
+        element: <AddMenu />,
       },
     ],
   },
